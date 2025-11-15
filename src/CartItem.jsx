@@ -9,14 +9,30 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
-    return cart.reduce((total, item) => {
-      return total + calculateTotalCost(item);
-    }, 0);
+    let total = 0; // Initialiser la variable total
+    
+    cart.forEach((item) => {
+      // Extraire la quantité et le coût
+      const quantity = item.quantity;
+      const cost = item.cost;
+      
+      // Convertir le coût en nombre (enlever le '$')
+      const numericCost = parseFloat(cost.substring(1));
+      
+      // Multiplier par la quantité et ajouter au total
+      total += numericCost * quantity;
+    });
+    
+    return total; // Retourner la somme finale
   };
 
   const handleContinueShopping = (e) => {
     e.preventDefault();
-    onContinueShopping();
+    onContinueShopping(e);
+  };
+
+  const handleCheckoutShopping = (e) => {
+    alert('Functionality to be added for future reference');
   };
 
   const handleIncrement = (item) => {
@@ -39,7 +55,7 @@ const CartItem = ({ onContinueShopping }) => {
   };
 
   const handleRemove = (item) => {
-    dispatch(removeItem(item.name)); // ⚠️ Notez bien: item.name, pas juste item
+    dispatch(removeItem(item.name));
   };
 
   // Calculate total cost based on quantity for an item
@@ -71,9 +87,13 @@ const CartItem = ({ onContinueShopping }) => {
       </div>
       <div style={{ marginTop: '20px', color: 'black' }} className='total_cart_amount'></div>
       <div className="continue_shopping_btn">
-        <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
+        <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>
+          Continue Shopping
+        </button>
         <br />
-        <button className="get-started-button1" onClick={() => alert('Functionality to be added for future reference')}>Checkout</button>
+        <button className="get-started-button1" onClick={(e) => handleCheckoutShopping(e)}>
+          Checkout
+        </button>
       </div>
     </div>
   );

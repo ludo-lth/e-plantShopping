@@ -24,20 +24,21 @@
   background-position: center;
   filter: brightness(0.8);
 }
+
 .content {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   width: 100vw;
- top: 100px;
+  top: 100px;
   backdrop-filter: blur(4px);
   background-color: rgba(0,0,0,0.5);
   gap: 20px;
 }
 
 .landing_content {
- margin-top: 430px;
+  margin-top: 430px;
   margin-left: 100px;
   transform: translate(-50%, -50%);
   z-index: 1;
@@ -90,7 +91,6 @@
 }
 
 /* ProductList.css */
-
 .product-list-container {
   position: absolute;
   overflow-x: hidden;
@@ -113,6 +113,86 @@
 .product-list-container.visible {
   top: 0;
 }
+
+/* ========================================
+   ✅ NOUVELLES RÈGLES - BADGE DU PANIER
+   ======================================== */
+
+/* Style du panier avec badge */
+.cart {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Badge du panier */
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  animation: pop 0.3s ease;
+  z-index: 10;
+}
+
+/* Animation d'apparition du badge */
+@keyframes pop {
+  0% { 
+    transform: scale(0); 
+    opacity: 0;
+  }
+  50% { 
+    transform: scale(1.3); 
+    opacity: 1;
+  }
+  100% { 
+    transform: scale(1); 
+  }
+}
+
+/* Animation pulsante quand le badge change */
+@keyframes pulse {
+  0% { 
+    transform: scale(1); 
+  }
+  50% { 
+    transform: scale(1.15); 
+  }
+  100% { 
+    transform: scale(1); 
+  }
+}
+
+.cart-badge.updated {
+  animation: pulse 0.3s ease;
+}
+
+/* Hover sur le panier */
+.cart:hover .cart-badge {
+  background-color: #c0392b;
+  transform: scale(1.1);
+  transition: all 0.2s ease;
+}
+
+/* Badge vide (optionnel - pour cacher quand 0) */
+.cart-badge.empty {
+  display: none;
+}
+
+/* ========================================
+   RESPONSIVE - ADJUSTEMENTS DU BADGE
+   ======================================== */
+
 /* LandingPage.css */
 @media screen and (max-width: 768px) {
   .content {
@@ -133,6 +213,15 @@
     margin-top: 20px; /* Adjust as needed */
     width: 80%; /* Adjust as needed */
   }
+
+  /* ✅ Badge sur mobile */
+  .cart-badge {
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+    top: -6px;
+    right: -6px;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -143,5 +232,14 @@
 
   .aboutus_container {
     width: 90%; /* Adjust as needed */
+  }
+
+  /* ✅ Badge sur petit mobile */
+  .cart-badge {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    top: -5px;
+    right: -5px;
   }
 }
